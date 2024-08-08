@@ -4037,3 +4037,57 @@ function agregarPregunta(pregunta) {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  
+
+  function obtenerdomconmora() {
+    console.log("Obteniendo registros de morosos...");
+    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+    fetch(url)    
+        .then((response) => response.json())
+        .then((data) => {
+            // Filtrar y agregar los registros con estado "Moroso" (sin importar la fecha)
+            const registrosMorosos = data.filter((registro) => registro.status.startsWith("Moroso"));
+            agregarRegistrosMorosos("morosos-registros", registrosMorosos);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+    // Función para agregar registros de morosos
+    function agregarRegistrosMorosos(contenedorId, registros) {
+        const contenedor = document.getElementById(contenedorId);
+        // Vaciar el contenedor antes de agregar nuevos registros
+        contenedor.innerHTML = '';
+        registros.forEach(registro => {
+            const registroHTML = `
+                <div id="div${registro.dom}" class="registro-item-mora">
+                    <p><strong>Domicilio:</strong> ${atob(registro.dom)}</p>
+                    <p><strong>Adeudo Total:</strong> ${registro.adeudo}</p>
+                </div>
+            `;
+            contenedor.insertAdjacentHTML('beforeend', registroHTML);
+        });
+    }
+
+  // Event listener para el clic en el elemento details
+  const detalles = document.querySelectorAll("details");
+  detalles.forEach(detalle => {
+      detalle.addEventListener("toggle", function() {
+          if (this.open) {
+              obtenerYAgregarRegistros2();
+          }
+      });
+  });
+
+      // Event listener para el clic en el elemento details
+      document.getElementById("calle-morosos").addEventListener("toggle", function() {
+        if (this.open) {
+            obtenerdomconmora();
+        }
+    });
+
+  // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
+  obtenerYAgregarRegistros2();
+});

@@ -90,7 +90,7 @@ const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
 const divvotaciones = document.getElementById("divvotaciones");
 const btnvotacion = document.getElementById("btnvotacion");
-const sheetID = "d07a2ee3-5434-4fc4-b1ef-0b6a2e853e27";
+const sheetID = "33744cb3-1a35-4278-8329-6b11e291a2a9";
 const privada = "-JDTI";
 
 let sesionIniciada = false;

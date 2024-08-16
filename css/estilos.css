@@ -1478,3 +1478,29 @@ summary::before {
   color: black
 }
 
+.terminar-registro{
+  height: 70px;
+  width: 100%; /* Mantiene el ancho deseado */
+  border-radius: 5px; /* Mantiene el border radius correcto */
+  background: #ff00004d;
+  border: 1px solid red; /* Asegura que el borde sea visible */
+  text-align: center;
+  font-size: 14px; /* Tamaño de fuente ajustado */
+  display: flex; /* Activa flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+
+.header2 {
+  margin-bottom: 10px;
+  text-align: left;
+  width: 60%; /* Ajusta el ancho según tus necesidades */
+
+
+}
+
+.columna-izquierda9 {
+  width: 40%; /* Ajusta el ancho según tus necesidades */
+
+}

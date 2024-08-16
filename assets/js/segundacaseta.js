@@ -416,12 +416,22 @@ document.addEventListener("DOMContentLoaded", function() {
               // Si el registro no tiene ingresoc2 y el elemento no existe, agréguelo
               if (!elementoExistente) {
                   const registroHTML = `
-                      <div id="${registroId}" class="registro-item">
+                    <div id="${registroId}" class="registro-item">
+                      <div class="row">
+                        <div class="header2">
                           <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
                           <p><strong>Nombre:</strong> ${registro.namevisita}</p>
                           <p><strong>Fecha:</strong> ${registro.fecha}</p>
                           <p><strong>Tipo:</strong> ${registro.tipo}</p>
+                          <p><strong>Ingreso la Rioja:</strong> ${registro.ingresoc1}</p>
+                        </div>
+                        <div class="columna-izquierda9">
+                          <button class="terminar-registro" data-registro-id="${registro.idunico}">
+                            Ingreso sin QR
+                          </button>
+                        </div>
                       </div>
+                    </div>
                   `;
                   contenedor.insertAdjacentHTML('beforeend', registroHTML);
               }
@@ -473,6 +483,76 @@ document.addEventListener("DOMContentLoaded", function() {
             obtenerdomconmora();
         }
     });
+
+      // Event listener para manejar clics en botones
+      document.addEventListener('click', function(event) {
+        const target = event.target;
+        
+        if (target.matches('.terminar-registro')) {
+            const registroId = target.getAttribute('data-registro-id');
+            const fechaActual = new Date().toLocaleString();
+            enviarFechaEntrada(registroId, fechaActual);
+        }
+      });
+    
+      async function enviarFechaEntrada(registroId, fechaActual) {
+        // Preguntar al usuario si desea continuar con la actualización
+        const confirmar = confirm("¿Estás seguro de que quieres actualizar la fecha de entrada?");
+        if (!confirmar) {
+            console.log("Actualización cancelada por el usuario.");
+            return; // Salir de la función si el usuario cancela
+        }
+    
+        // Obtener los datos de la hoja de cálculo
+        const urldata = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas${privada}`;
+    
+        try {
+            const response = await fetch(urldata);
+            const data = await response.json();
+            console.log("Datos obtenidos:");
+    
+            // Buscar el índice del registro con el ID único proporcionado
+            const index = data.findIndex((fila) => fila.idunico === registroId);
+    
+            // Verificar si se encontró el registro
+            if (index !== -1) {
+                console.log("Registro encontrado:");
+                console.log(data[index]);
+    
+                // Preparar los datos actualizados para enviar (solo fecha de entrada)
+                const datosActualizados = {
+                    ingresoc2: fechaActual
+                };
+    
+                // Construir la URL para actualizar el registro en la hoja de cálculo
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas${privada}/${index}`;
+                console.log(url);
+    
+                // Actualizar la fecha de entrada en la hoja de cálculo
+                const updateResponse = await fetch(url, {
+                    method: "PATCH",
+                    mode: "cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datosActualizados)
+                });
+    
+                const updatedData = await updateResponse.json();
+                console.log("Fecha de entrada actualizada correctamente:", updatedData);
+    
+                // Asegúrate de pasar los parámetros correctos para `actualizarQRResidente`
+    
+                setTimeout(() => {
+                  obtenerYAgregarRegistros2();
+                }, 5000); // 10000 ms = 10 segundos
+              } else {
+                console.error("Registro no encontrado");
+            }
+        } catch (error) {
+            console.error("Error al obtener o actualizar los datos:", error);
+        }
+      }  
 
   // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
   obtenerYAgregarRegistros2();

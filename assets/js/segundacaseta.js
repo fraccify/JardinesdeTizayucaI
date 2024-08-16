@@ -424,7 +424,6 @@ document.addEventListener("DOMContentLoaded", function() {
                           <p><strong>Nombre:</strong> ${registro.namevisita}</p>
                           <p><strong>Fecha:</strong> ${registro.fecha}</p>
                           <p><strong>Tipo:</strong> ${registro.tipo}</p>
-                          <p><strong>Ingreso la Rioja:</strong> ${registro.ingresoc1}</p>
                         </div>
                         <div class="columna-izquierda9">
                           <button class="terminar-registro" data-registro-id="${registro.idunico}">

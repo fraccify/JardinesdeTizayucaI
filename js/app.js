@@ -131,10 +131,16 @@ function cifrarCorreo(valor) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  
   const correoCifradoGuardado = localStorage.getItem('correoCifradoInput');
   const contraseñaGuardada = localStorage.getItem('contraseñasCifrada');
 
   if (correoCifradoGuardado && contraseñaGuardada) {
+
+    if ((correoCifradoGuardado === "CENTINELA" && contraseñaGuardada === "JDT1") ||    (correoCifradoGuardado === "AGCH" && contraseñaGuardada === "JDT1")){
+    sesionIniciada = true; // Marcar la sesión como iniciada
+    window.location.href = "index2.html";
+    } else {
 
     console.log("Datos de sesión guardados:");
     console.log("Usuario:", correoCifradoGuardado);
@@ -1237,6 +1243,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   );
                 }
               }
+
               function enviardatospago() {
                 var boton3 = document.getElementById("enviarpago");
 
@@ -1450,8 +1457,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Usuario o contraseña incorrectos");
           }
         });  
-    } else {
-    console.log("No hay datos de sesión guardados.");
+    }
   }
 });
 
@@ -1464,13 +1470,24 @@ formulario.addEventListener("submit", (e) => {
   const contraseñaInput = document.getElementById("contrasena").value;
   console.log(contraseñaInput);
 
-  if (    (usuarioInput === "CENTINELA" && contraseñaInput === "SANSEBASTIAN") ||    (usuarioInput === "AGCH" && contraseñaInput === "SANSEBASTIAN")  ) {
+  if (    (usuarioInput === "CENTINELA" && contraseñaInput === "JDT1") ||    (usuarioInput === "AGCH" && contraseñaInput === "JDT1")  ) {
     // Redirigir a la página deseada
     sesionIniciada = true; // Marcar la sesión como iniciada
+
+    const rememberMe = checkboxrememberMe.checked;
+    if (rememberMe) {
+      localStorage.setItem('correoCifradoInput', usuarioInput);
+      localStorage.setItem('contraseñasCifrada', contraseñaInput);
+      console.log(usuarioInput);                    
+      console.log(contraseñaInput);
+      console.log("Usuario y contraseña se guardarán en localStorage");                    
+    }
+
 
     window.location.href = "index2.html";
   } else if ((usuarioInput === "CENTINELA" && contraseñaInput === "CASETAPRINCIPAL") ||    (usuarioInput === "AGCH" && contraseñaInput === "CASETAPRINCIPAL")){
     sesionIniciada = true; // Marcar la sesión como iniciada
+
 
     window.location.href = "seguridadcasetaprincipal.html";
 
@@ -4120,7 +4137,6 @@ function agregarPregunta(pregunta) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  
 
   function obtenerdomconmora() {
     console.log("Obteniendo registros de morosos...");
@@ -4135,8 +4151,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch((error) => {
             console.error(error);
         });
-}
-
+  }
     // Función para agregar registros de morosos
     function agregarRegistrosMorosos(contenedorId, registros) {
         const contenedor = document.getElementById(contenedorId);
@@ -4153,23 +4168,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-  // Event listener para el clic en el elemento details
-  const detalles = document.querySelectorAll("details");
-  detalles.forEach(detalle => {
-      detalle.addEventListener("toggle", function() {
-          if (this.open) {
-              obtenerYAgregarRegistros2();
-          }
-      });
-  });
 
       // Event listener para el clic en el elemento details
       document.getElementById("calle-morosos").addEventListener("toggle", function() {
         if (this.open) {
             obtenerdomconmora();
         }
-    });
-
-  // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
-  obtenerYAgregarRegistros2();
+    });  
 });

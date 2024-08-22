@@ -3261,7 +3261,7 @@ function generarTabla(contenedorId, data) {
         tablaHTML += `<td><details><summary class="${claseFila}">${calle}</summary>`;
         tablaHTML += `<table class="${claseFila}" border="0">`;
         tablaHTML += "<tr>";
-        tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
+        tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" oninput="removeSpecialCharacters(this)" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Celular</td><td><input class="datostext" type="tel" value="${celular}" onchange="actualizarDato(this.value, 'cel', '${domcodificado}')"></td></tr>`;
         tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;

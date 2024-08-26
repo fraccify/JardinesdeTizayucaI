@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
               document.getElementById("btnrecibonov2025").addEventListener("click", generarrecibopdf);
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
               document.getElementById("borrardatos").addEventListener("click", borrarElementos);
-              document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
+              
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
               var boton3 = document.getElementById("enviarpago");
@@ -336,8 +336,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
               const datosreg = {
                 registro: fechaHoraFormateada,
-                dom: domiciliocod,
+                dom: domicilio,
               };
+
 
               const urlregistro = `https://sheet.best/api/sheets/${sheetID}/tabs/registros${privada}`;
               const opciones = {
@@ -1683,7 +1684,6 @@ formulario.addEventListener("submit", (e) => {
               document.getElementById("btnrecibodic2025").addEventListener("click", generarrecibopdf);
               document.getElementById("borrardatos").addEventListener("click", borrarElementos);
           
-              document.getElementById("enviarvoto").addEventListener("click", enviarvoto);
 
               var boton = document.getElementById("btnparaconfirmarreserca");
               var boton2 = document.getElementById("generarvisitayqr");
@@ -1698,7 +1698,7 @@ formulario.addEventListener("submit", (e) => {
 
               const datosreg = {
                 registro: fechaHoraFormateada,
-                dom: domiciliocod,
+                dom: domicilio,
               };
 
               const urlregistro = `https://sheet.best/api/sheets/${sheetID}/tabs/registros${privada}`;

@@ -3479,6 +3479,7 @@ function agregarresidente() {
             correo: correocif,
             password: passwordcif,
             cel: newcel,
+            status: "Al Corriente"
           };
 
           const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;

@@ -1,7 +1,6 @@
 const sheetID = "186ffa7a-fa1e-4afe-8b13-84496e34d390";
 const privada = "-JDTI"
 
-
 // app.js
 
 const video = document.createElement("video");
